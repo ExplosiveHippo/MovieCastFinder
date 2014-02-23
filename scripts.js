@@ -190,13 +190,13 @@ function displayActors(actors){
 		for(var i = 0; i < actors.length; i++){
 			//actorImages.push(actorImg);
 			//console.log(actorImg);
-			console.log(actorImages[i]);
-		var imgPath = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w500/"+actorImages[i];
-		console.log(imgPath);
+		//	console.log(actorImages[i]);
+		//var imgPath = "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w500/"+actorImages[i];
+		//console.log(imgPath);
 	
 		if(actors.length <= 0){
 			//var string = '<h1>There are no shared actors in those movies!</h1>';
-			var string = '<div class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author">There are no common actors in these movies!</h1></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> ';
+			var string = '<div style="height:80px" class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author">There are no common actors in these movies!</h1></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> ';
 			
 			string += "";
 			$('#results').append(string);
@@ -204,7 +204,7 @@ function displayActors(actors){
 		}else{
 			var string = '';		
 			for(var i=0; i < actors.length; i++){
-				string+='<div class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="'+imgPath+'"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author">'+actors[i]+'</h1></div><div class="clear"></div></div></li></ol></div>';	
+				string+='<div class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author">'+actors[i]+'</h1></div><div class="clear"></div></div></li></ol></div>';	
 			}
 			
 			string+= "<span class='btn'><a href='index.html' style='text-decoration: none;'><input class='gradient' type='submit' value='Search Again' hidefocus='true' style='outline: medium none; cursor: pointer; text-decoration: none; border-style: none;'></a></span>"
