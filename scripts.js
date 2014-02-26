@@ -9,8 +9,7 @@ $( document ).ready(function() {
 	
 	$(window).keydown(function(event){
 	    if(event.keyCode == 13) {
-	      event.preventDefault();
-	      return false;
+	      search();
 	    }
   });
   
@@ -48,21 +47,38 @@ function search(){
 //Called once from search();
 function getMovieIDs(movies){
 	console.log("getMovieIDs");
-	for(var i=0; i < movies.length; i++){
-			var url = "http://api.themoviedb.org/3/search/movie?api_key="+api_key+"&query="+movies[i];
-			$.ajax({
-				dataType: "json",
-				url: url,
-				success: function(success){
-					//actorData = getActors(success);
-					var id = success.results[0].id;
-					getActors(id);
-				},
-				error: function(){
-					console.log("bad request");
-				},
-				type: "GET"
-			});
+	console.log(movies);
+	var status = false;
+	if(status == false){
+		console.log(status);
+		for(var i=0; i < movies.length; i++){
+				var url = "http://api.themoviedb.org/3/search/movie?api_key="+api_key+"&query="+movies[i];
+				$.ajax({
+					dataType: "json",
+					url: url,
+					success: function(success){
+						//actorData = getActors(success);
+						if(status == false){
+							if(typeof(success.results[0]) == 'undefined'){
+								var string = '<div style="height:80px" class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author error">At least one of those movies do not exist!</h1><p class="error">Perhaps you misspelled something?</p></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> '
+								$('#results').append(string);
+								$( "#results" ).fadeIn( "slow" );
+								status = true;
+
+								console.log(status);
+							}else{
+								var id = success.results[0].id;
+								getActors(id);
+							}
+						}
+					},
+					error: function(){
+						console.log("bad request");
+					},
+					type: "GET",
+					async:false
+				});
+		}
 	}
 }
 
@@ -187,7 +203,7 @@ function displayActors(actors){
 	console.log(actors);
 	if(actors != []){
 		console.log(actors);
-		for(var i = 0; i < actors.length; i++){
+		//for(var i = 0; i < actors.length; i++){
 			//actorImages.push(actorImg);
 			//console.log(actorImg);
 		//	console.log(actorImages[i]);
@@ -196,7 +212,7 @@ function displayActors(actors){
 	
 		if(actors.length <= 0){
 			//var string = '<h1>There are no shared actors in those movies!</h1>';
-			var string = '<div style="height:80px" class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author">There are no common actors in these movies!</h1></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> ';
+			var string = '<div style="height:80px" class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author error">There are no common actors in these movies!</h1></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> ';
 			
 			string += "";
 			$('#results').append(string);
@@ -212,6 +228,6 @@ function displayActors(actors){
 			$('#results').append(string);
 			$( "#results" ).fadeIn( "slow" );
 		}
-	}
+	//}
 }
 }

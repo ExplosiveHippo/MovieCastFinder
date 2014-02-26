@@ -218,6 +218,9 @@ h1, h2, h3, h4, h5, h6 {
 	line-height:1.2em;
 	margin-bottom:.8em;
 }
+
+h1{color:#E65E3B!important;}
+
 h4, h5, h6{color: #e86741;}
 
 h1{font-size:27px}
@@ -1384,7 +1387,11 @@ p{
 	margin-bottom: 12px;
 	text-align: right;
 	font-size: 13px;
-    text-transform: uppercase;
+    text-transform: initial;
+}
+
+.comment-author p{
+	text-transform: ;
 }
 .link-author {
 	font-size: 21px;
@@ -2419,6 +2426,16 @@ input[type="password"]:focus{
     float: none;
     color: #5c5146;
 }
+
+.error{
+	margin-left: 120px;
+}
+
+.comment-text .btn{
+	margin-left: 110px;
+	margin-bottom: 10px;
+}
+
 .comment-list.styled .link-author:hover {color: #8D8569;}
 
 /* Responsive */
