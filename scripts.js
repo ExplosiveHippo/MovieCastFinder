@@ -16,16 +16,17 @@ $( document ).ready(function() {
   
 });
 
-var finished = false;
-var actors1 = [];
-var actors2 = [];
-var actors1Filter = [];
+var finished = false; //Flag for grouping the two movie cast arrays
+var actors1 = [];//Holds the actor data from the first movie
+var actors2 = [];//Holds the actor data for the second movie
+//Filtered down to the data we care about
 var actors2Filter = [];
-var sharedActors = [];
-var actorImages = [];
+var actors1Filter = []; 
+var sharedActors = []; //Holds the actors who are in both films
+var actorImages = []; //Will hold actor images - not working yet.
 
 
-
+//Some error checking and basic search function
 function search(){
 	console.log("search");
 	var movie1 = $('#search1').val();
@@ -44,7 +45,7 @@ function search(){
 	
 }
 
-//Called once from search();
+//Called once from search(); Will return the actor ids found by passing the movie string query
 function getMovieIDs(movies){
 	console.log("getMovieIDs");
 	console.log(movies);
@@ -58,6 +59,8 @@ function getMovieIDs(movies){
 					url: url,
 					success: function(success){
 						//actorData = getActors(success);
+						//status will equal true if we can't find a movie result 
+						// they probably misspelled something or it simply doesn't exist in the API
 						if(status == false){
 							if(typeof(success.results[0]) == 'undefined'){
 								var string = '<div style="height:80px" class="comment-list styled clearfix"><ol><li class="comment first last"><div class="comment-body boxed"><div class="comment-arrow"></div><div class="comment-avatar"><div class="avatar"><img alt="" src="images/no-result.png"></div></div><div class="comment-text"><div class="comment-author clearfix"><h1 class="link-author error">At least one of those movies do not exist!</h1><p class="error">Perhaps you misspelled something?</p></div><span class="btn"><a href="index.html" style="text-decoration: none;"><input class="gradient" type="submit" value="Search Again" hidefocus="true" style="outline: medium none; cursor: pointer; text-decoration: none; border-style: none;"></a></span><div class="clear"></div></div></div> '
@@ -72,6 +75,7 @@ function getMovieIDs(movies){
 							}
 						}
 					},
+					//Something went wrong with the connection
 					error: function(){
 						console.log("bad request");
 					},
@@ -84,6 +88,7 @@ function getMovieIDs(movies){
 
 
 //Called twice from getMovieID - once for each movie
+// Get's basic actor data and pushes them to an array for later
 function getActors(id){
 	console.log("getActors");
 	if(id != undefined){
@@ -116,6 +121,7 @@ function getActors(id){
 
 
 // Called twice - because getActors is called twice from getMovieID
+// Get's actors names from the large data that is initlly returned
 function groupActors(){
 	//console.log(actors1);
 	console.log("groupActors");
@@ -152,6 +158,7 @@ function groupActors(){
 }
 
 
+// FUNCTIONALIY NOT WORKING YET - Will get actor images
 function getImages(actor){
 	console.log("getImages");
 	console.log(actor);
@@ -185,7 +192,7 @@ function getImages(actor){
 }
 
 
-
+//Checks to two actor arrays for common people
 function compareActors(){
 	console.log("compareActors");
 	var ret = [];
@@ -198,6 +205,7 @@ function compareActors(){
 }
 
 
+//Builds out our list of shared actors
 function displayActors(actors){
 	console.log("displayActors");
 	console.log(actors);
